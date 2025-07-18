@@ -19,6 +19,8 @@ use App\Http\Controllers\JourFerieController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\PointageUserController;
+use App\Http\Controllers\ServiceController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,7 +47,7 @@ Route::get('users/{id}/photo', [UserController::class, 'showPhoto']);
 
 // Protected Routes (Authentication Required)
 Route::group(['middleware' => ['auth.jwt']], function () {
-
+    
     // User Routes
     Route::get('users', [UserController::class, 'index']);
     Route::get('users/me', [UserController::class, 'me']);
@@ -53,6 +55,15 @@ Route::group(['middleware' => ['auth.jwt']], function () {
     Route::get('users/{id}', [UserController::class, 'show']);
     Route::post('users/{id}', [UserController::class, 'update']);
     Route::delete('users/{id}', [UserController::class, 'destroy']);
+
+    // Services Routes
+    Route::get('services', [ServiceController::class, 'index']);
+    Route::post('services', [ServiceController::class, 'logout']);
+    // Route::get('users/me', [UserController::class, 'me']);
+    // Route::post('users/logout', [UserController::class, 'logout']);
+    // Route::get('users/{id}', [UserController::class, 'show']);
+    // Route::post('users/{id}', [UserController::class, 'update']);
+    // Route::delete('users/{id}', [UserController::class, 'destroy']);
     
 
     // Droit Routes
