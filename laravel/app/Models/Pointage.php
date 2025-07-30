@@ -14,6 +14,6 @@ class Pointage extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'pointage_user', 'ID_Pointage', 'ID_User')->withPivot('Heur_Travail', 'Abssance');
+        return $this->belongsToMany(User::class, 'pointage_user', 'ID_Pointage', 'ID_User')->withPivot('Heur_Travail', 'Absence');
     }
 }

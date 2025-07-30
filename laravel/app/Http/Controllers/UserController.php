@@ -118,7 +118,10 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::with('role', 'paiements', 'rappels', 'documentUsers', 'conges', 'pointages', 'rendezVous')->get();
+        // return response()->json(['message' => 'This route is protected and requires authentication'], 403);
+        $users = User::with('role', 'paiements', 'rappels', 'documentUsers', 'conges', 'pointages', 'rendezVous')
+            ->where('ID_Role', '!=', 1)
+            ->get();
         return response()->json($users);
     }
 
@@ -197,7 +200,7 @@ class UserController extends Controller
         } catch (ValidationException $e) {
             $errors = $e->errors();
             $firstErrorMessage = reset($errors)[0]; // Get the first error message
-    
+
             return response()->json([
                 'status' => 'error',
                 'message' => $firstErrorMessage, // Use the first error message
@@ -215,12 +218,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        
+
         // Delete the associated photo if it exists
         if ($user->Photo) {
             Storage::delete($user->Photo);
         }
-        
+
         $user->delete();
         return response()->json(null, 204);
     }

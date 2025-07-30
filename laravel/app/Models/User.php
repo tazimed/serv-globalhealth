@@ -42,7 +42,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function pointages()
     {
-        return $this->belongsToMany(Pointage::class, 'pointage_user', 'ID_User', 'ID_Pointage')->withPivot('Heur_Travail', 'Abssance');
+        return $this->belongsToMany(Pointage::class, 'pointage_user', 'ID_User', 'ID_Pointage')->withPivot('Heur_Travail', 'Absence');
     }
 
     public function rendezVous()
@@ -55,7 +55,7 @@ class User extends Authenticatable implements JWTSubject
         {
             return $this->getKey();
         }
-    
+
         public function getJWTCustomClaims()
         {
             return [];

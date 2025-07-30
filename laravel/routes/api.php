@@ -20,6 +20,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\PointageUserController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,7 @@ Route::get('users/{id}/photo', [UserController::class, 'showPhoto']);
 
 // Protected Routes (Authentication Required)
 Route::group(['middleware' => ['auth.jwt']], function () {
-    
+
     // User Routes
     Route::get('users', [UserController::class, 'index']);
     Route::get('users/me', [UserController::class, 'me']);
@@ -64,7 +65,7 @@ Route::group(['middleware' => ['auth.jwt']], function () {
     // Route::get('users/{id}', [UserController::class, 'show']);
     // Route::post('users/{id}', [UserController::class, 'update']);
     // Route::delete('users/{id}', [UserController::class, 'destroy']);
-    
+
 
     // Droit Routes
     Route::get('droits', [DroitController::class, 'index']);
@@ -169,4 +170,10 @@ Route::group(['middleware' => ['auth.jwt']], function () {
     // PointageUser Routes
     Route::post('pointage_users/{pointageId}/{userId}', [PointageUserController::class, 'store']);
     Route::delete('pointage_users/{pointageId}/{userId}', [PointageUserController::class, 'destroy']);
+
+    Route::post('/attendance/record', [AttendanceController::class, 'recordAbsence'])->name('attendance.record');
+    Route::get('/attendance', [AttendanceController::class, 'attendance'])->name('attendance.by-date');
+    Route::get('/attendance/user/{userId}/history', [AttendanceController::class, 'getUserAttendanceHistory'])->name('attendance.user.history');
+
 });
+
